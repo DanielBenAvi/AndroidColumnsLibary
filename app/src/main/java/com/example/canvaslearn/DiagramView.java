@@ -91,10 +91,16 @@ public class DiagramView extends View {
     }
 
     public void setTheBackgroundColor(int color) {
+        if (color == 0) {
+            throw new IllegalArgumentException("Color cannot be 0");
+        }
         setBackgroundColor(color);
     }
 
     public void setColumnsTextColor(int color) {
+        if (color == 0) {
+            throw new IllegalArgumentException("Color cannot be 0");
+        }
         for (Column column : pre_allocatedColumns) {
             column.setTextColor(color);
         }
@@ -102,6 +108,9 @@ public class DiagramView extends View {
     }
 
     public void setColumnsTextSize(float size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("Text size cannot be negative");
+        }
         for (Column column : pre_allocatedColumns) {
             column.setTextSize(size);
         }
@@ -109,6 +118,9 @@ public class DiagramView extends View {
     }
 
     public void setColumnsColor(int color) {
+        if (color == 0) {
+            throw new IllegalArgumentException("Color cannot be 0");
+        }
         for (Column column : pre_allocatedColumns) {
             column.setColor(color);
         }
@@ -116,6 +128,9 @@ public class DiagramView extends View {
     }
 
     public void setSpaceBetweenColumns(int space) {
+        if (space < 0) {
+            throw new IllegalArgumentException("Space between columns cannot be negative");
+        }
         spaceBetweenColumns = space;
         invalidate();
     }
