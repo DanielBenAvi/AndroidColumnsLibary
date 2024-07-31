@@ -5,28 +5,30 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 public class Column {
-    public static final int DEFAULT_COLOR = Color.BLACK;
-    public static final int DEFAULT_TEXT_COLOR = Color.GRAY;
-    public static final int DEFAULT_TEXT_SIZE = 30;
 
-
-    private String title;
     private int value;
+    private String name;
+    private int left, top, right, bottom;
+    private Paint textPaint;
+    private Paint rectPaint;
     private int color;
     private int textColor;
-    private int textSize;
-    private int left;
-    private int top;
-    private int right;
-    private int bottom;
+    private float textSize;
 
-    public Column(String title, int value, int left, int top, int right, int bottom) {
-        color = DEFAULT_COLOR;
-        textColor = DEFAULT_TEXT_COLOR;
-        textSize = DEFAULT_TEXT_SIZE;
+    public Column() {
+        // Default values
+        value = 0;
+        name = "";
+        left = 0;
+        top = 0;
+        right = 0;
+        bottom = 0;
+        color = Color.BLACK;
+        textColor = Color.WHITE;
+        textSize = 30;
+        textPaint = new Paint();
+        rectPaint = new Paint();
     }
-
-
 
     public void draw(Canvas canvas) {
         Paint rectPaint = new Paint();
@@ -34,26 +36,19 @@ public class Column {
         rectPaint.setStyle(Paint.Style.FILL);
         canvas.drawRect(left, top, right, bottom, rectPaint);
 
-        Paint textPaint = new Paint();
         textPaint.setColor(textColor);
         textPaint.setTextSize(textSize);
-        textPaint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(title, left + (right - left) / 2, bottom - textSize, textPaint);
-        canvas.drawText(String.valueOf(value), left + (right - left) / 2, bottom - textSize * 2, textPaint);
+        // Draw text in the middle of the column
+        canvas.drawText(name, left, bottom - 10, textPaint);
 
+        // Draw value at the top of the column
+        canvas.drawText(String.valueOf(value), left, top - textSize, textPaint);
     }
+
 
 
     // Getters and setters
 
-    public String getTitle() {
-        return title;
-    }
-
-    public Column setTitle(String title) {
-        this.title = title;
-        return this;
-    }
 
     public int getValue() {
         return value;
@@ -64,30 +59,12 @@ public class Column {
         return this;
     }
 
-    public int getColor() {
-        return color;
+    public String getName() {
+        return name;
     }
 
-    public Column setColor(int color) {
-        this.color = color;
-        return this;
-    }
-
-    public int getTextColor() {
-        return textColor;
-    }
-
-    public Column setTextColor(int textColor) {
-        this.textColor = textColor;
-        return this;
-    }
-
-    public int getTextSize() {
-        return textSize;
-    }
-
-    public Column setTextSize(int textSize) {
-        this.textSize = textSize;
+    public Column setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -123,6 +100,59 @@ public class Column {
     }
 
     public Column setBottom(int bottom) {
+        this.bottom = bottom;
+        return this;
+    }
+
+    public Paint getTextPaint() {
+        return textPaint;
+    }
+
+    public Column setTextPaint(Paint textPaint) {
+        this.textPaint = textPaint;
+        return this;
+    }
+
+    public Paint getRectPaint() {
+        return rectPaint;
+    }
+
+    public Column setRectPaint(Paint rectPaint) {
+        this.rectPaint = rectPaint;
+        return this;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public Column setColor(int color) {
+        this.color = color;
+        return this;
+    }
+
+    public int getTextColor() {
+        return textColor;
+    }
+
+    public Column setTextColor(int textColor) {
+        this.textColor = textColor;
+        return this;
+    }
+
+    public float getTextSize() {
+        return textSize;
+    }
+
+    public Column setTextSize(float textSize) {
+        this.textSize = textSize;
+        return this;
+    }
+
+    public Column setBounds(int left, int top, int right, int bottom) {
+        this.left = left;
+        this.top = (int) (top + textSize*2);
+        this.right = right;
         this.bottom = bottom;
         return this;
     }

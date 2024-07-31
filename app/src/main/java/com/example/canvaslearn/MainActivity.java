@@ -1,5 +1,6 @@
 package com.example.canvaslearn;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -21,9 +22,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Data> dataList = new ArrayList<>();
         dataList.add(new Data("Item 1", 100));
         dataList.add(new Data("Item 2", 150));
-        dataList.add(new Data("Item 3", 200));
+        dataList.add(new Data("Item 3", 300));
         dataList.add(new Data("Item 4", 100));
         dataList.add(new Data("Item 5", 50));
         diagramView.setDataList(dataList);
+        diagramView.setTheBackgroundColor(Color.parseColor("#FFC107"));
+        diagramView.setColumnsColor(Color.parseColor("#FF5722"));
+        diagramView.setColumnsTextColor(Color.parseColor("#FFFFFF"));
+        diagramView.setColumnsTextSize(40);
     }
 }
