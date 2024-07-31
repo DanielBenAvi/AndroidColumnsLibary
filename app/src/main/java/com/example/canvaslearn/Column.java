@@ -7,6 +7,7 @@ import android.graphics.Paint;
 public class Column {
 
     private int value;
+    private int animatedValue;
     private String name;
     private int left, top, right, bottom;
     private Paint textPaint;
@@ -18,6 +19,7 @@ public class Column {
     public Column() {
         // Default values
         value = 0;
+        animatedValue = 0;
         name = "";
         left = 0;
         top = 0;
@@ -34,7 +36,8 @@ public class Column {
         Paint rectPaint = new Paint();
         rectPaint.setColor(color);
         rectPaint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(left, top, right, bottom, rectPaint);
+        int animatedTop = bottom - (bottom - top) * animatedValue / value;
+        canvas.drawRect(left, animatedTop, right, bottom, rectPaint);
 
         textPaint.setColor(textColor);
         textPaint.setTextSize(textSize);
@@ -53,12 +56,16 @@ public class Column {
         canvas.drawText(displayName, left, bottom - 10, textPaint);
 
         // Draw value at the top of the column
-        canvas.drawText(String.valueOf(value), left, top - textSize, textPaint);
+        canvas.drawText(String.valueOf(value), left, animatedTop - textSize, textPaint);
     }
-
 
     public Column setValue(int value) {
         this.value = value;
+        return this;
+    }
+
+    public Column setAnimatedValue(int animatedValue) {
+        this.animatedValue = animatedValue;
         return this;
     }
 
@@ -67,48 +74,40 @@ public class Column {
         return this;
     }
 
-
     public Column setLeft(int left) {
         this.left = left;
         return this;
     }
 
-
     public Column setTop(int top) {
-        this.top = (int) (top  + textSize*2);
+        this.top = (int) (top + textSize * 2);
         return this;
     }
-
 
     public Column setRight(int right) {
         this.right = right;
         return this;
     }
 
-
     public Column setBottom(int bottom) {
         this.bottom = bottom;
         return this;
     }
-
 
     public Column setTextPaint(Paint textPaint) {
         this.textPaint = textPaint;
         return this;
     }
 
-
     public Column setRectPaint(Paint rectPaint) {
         this.rectPaint = rectPaint;
         return this;
     }
 
-
     public Column setColor(int color) {
         this.color = color;
         return this;
     }
-
 
     public Column setTextColor(int textColor) {
         this.textColor = textColor;

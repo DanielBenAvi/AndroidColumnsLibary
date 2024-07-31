@@ -25,11 +25,13 @@ public class MainActivity extends AppCompatActivity {
         dataList.add(new Data("Item 3", 300));
         dataList.add(new Data("Item 4", 100));
         dataList.add(new Data("Item 5", 50));
+        diagramView.setAnimateColumns(true);
         diagramView.setDataList(dataList);
         diagramView.setTheBackgroundColor(Color.parseColor("#FFC107"));
         diagramView.setColumnsColor(Color.parseColor("#FF5722"));
         diagramView.setColumnsTextColor(Color.parseColor("#FFFFFF"));
         diagramView.setColumnsTextSize(40);
         diagramView.setSpaceBetweenColumns(10);
+
     }
 }

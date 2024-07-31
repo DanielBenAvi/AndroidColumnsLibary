@@ -1,5 +1,6 @@
 package com.example.canvaslearn;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class DiagramView extends View {
     private ArrayList<Column> pre_allocatedColumns;
     private ArrayList<Data> dataList;
-
+    private boolean animateColumns = false;
     private int spaceBetweenColumns = 50;
 
     public DiagramView(Context context, AttributeSet attrs) {
@@ -34,7 +35,28 @@ public class DiagramView extends View {
             pre_allocatedColumns.add(new Column());
         }
 
-        invalidate(); // Redraw the view with new data
+        if (animateColumns) {
+            startAnimation();
+        } else {
+            for (int i = 0; i < dataList.size(); i++) {
+                pre_allocatedColumns.get(i).setAnimatedValue(dataList.get(i).getSize());
+            }
+            invalidate();
+        }
+    }
+
+    private void startAnimation() {
+        for (int i = 0; i < dataList.size(); i++) {
+            final Column column = pre_allocatedColumns.get(i);
+            final int value = dataList.get(i).getSize();
+            ValueAnimator animator = ValueAnimator.ofInt(0, value);
+            animator.setDuration(1000);
+            animator.addUpdateListener(animation -> {
+                column.setAnimatedValue((int) animation.getAnimatedValue());
+                invalidate();
+            });
+            animator.start();
+        }
     }
 
     @Override
@@ -42,7 +64,6 @@ public class DiagramView extends View {
         if (dataList == null || dataList.isEmpty()) {
             return;
         }
-
 
         int columnWidth = (getWidth() - spaceBetweenColumns * (dataList.size() + 1)) / dataList.size();
         int maxDataSize = 0;
@@ -106,4 +127,7 @@ public class DiagramView extends View {
         invalidate();
     }
 
+    public void setAnimateColumns(boolean animate) {
+        this.animateColumns = animate;
+    }
 }
