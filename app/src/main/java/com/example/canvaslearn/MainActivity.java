@@ -30,5 +30,6 @@ public class MainActivity extends AppCompatActivity {
         diagramView.setColumnsColor(Color.parseColor("#FF5722"));
         diagramView.setColumnsTextColor(Color.parseColor("#FFFFFF"));
         diagramView.setColumnsTextSize(40);
+        diagramView.setSpaceBetweenColumns(10);
     }
 }

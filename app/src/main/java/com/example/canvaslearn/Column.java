@@ -24,7 +24,7 @@ public class Column {
         right = 0;
         bottom = 0;
         color = Color.BLACK;
-        textColor = Color.WHITE;
+        textColor = Color.GRAY;
         textSize = 30;
         textPaint = new Paint();
         rectPaint = new Paint();
@@ -38,29 +38,28 @@ public class Column {
 
         textPaint.setColor(textColor);
         textPaint.setTextSize(textSize);
+        // Handle text overflow
+        String displayName = name;
+        float textWidth = textPaint.measureText(name);
+        float availableWidth = right - left;
+        if (textWidth > availableWidth) {
+            while (textPaint.measureText(displayName + "...") > availableWidth && !displayName.isEmpty()) {
+                displayName = displayName.substring(0, displayName.length() - 1);
+            }
+            displayName += "...";
+        }
+
         // Draw text in the middle of the column
-        canvas.drawText(name, left, bottom - 10, textPaint);
+        canvas.drawText(displayName, left, bottom - 10, textPaint);
 
         // Draw value at the top of the column
         canvas.drawText(String.valueOf(value), left, top - textSize, textPaint);
     }
 
 
-
-    // Getters and setters
-
-
-    public int getValue() {
-        return value;
-    }
-
     public Column setValue(int value) {
         this.value = value;
         return this;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Column setName(String name) {
@@ -68,80 +67,52 @@ public class Column {
         return this;
     }
 
-    public int getLeft() {
-        return left;
-    }
 
     public Column setLeft(int left) {
         this.left = left;
         return this;
     }
 
-    public int getTop() {
-        return top;
-    }
 
     public Column setTop(int top) {
-        this.top = top;
+        this.top = (int) (top  + textSize*2);
         return this;
     }
 
-    public int getRight() {
-        return right;
-    }
 
     public Column setRight(int right) {
         this.right = right;
         return this;
     }
 
-    public int getBottom() {
-        return bottom;
-    }
 
     public Column setBottom(int bottom) {
         this.bottom = bottom;
         return this;
     }
 
-    public Paint getTextPaint() {
-        return textPaint;
-    }
 
     public Column setTextPaint(Paint textPaint) {
         this.textPaint = textPaint;
         return this;
     }
 
-    public Paint getRectPaint() {
-        return rectPaint;
-    }
 
     public Column setRectPaint(Paint rectPaint) {
         this.rectPaint = rectPaint;
         return this;
     }
 
-    public int getColor() {
-        return color;
-    }
 
     public Column setColor(int color) {
         this.color = color;
         return this;
     }
 
-    public int getTextColor() {
-        return textColor;
-    }
 
     public Column setTextColor(int textColor) {
         this.textColor = textColor;
         return this;
-    }
-
-    public float getTextSize() {
-        return textSize;
     }
 
     public Column setTextSize(float textSize) {
@@ -150,10 +121,18 @@ public class Column {
     }
 
     public Column setBounds(int left, int top, int right, int bottom) {
-        this.left = left;
-        this.top = (int) (top + textSize*2);
-        this.right = right;
-        this.bottom = bottom;
+        setBottom(bottom);
+        setLeft(left);
+        setRight(right);
+        setTop(top);
         return this;
+    }
+
+    public void setTextBold(boolean b) {
+        if (b) {
+            textPaint.setFakeBoldText(true);
+        } else {
+            textPaint.setFakeBoldText(false);
+        }
     }
 }
