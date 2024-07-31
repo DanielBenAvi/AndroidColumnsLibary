@@ -8,6 +8,7 @@ public class Column {
 
     private int value;
     private int animatedValue;
+    private int currentValue;
     private String name;
     private int left, top, right, bottom;
     private Paint textPaint;
@@ -20,6 +21,7 @@ public class Column {
         // Default values
         value = 0;
         animatedValue = 0;
+        currentValue = 0;
         name = "";
         left = 0;
         top = 0;
@@ -55,8 +57,8 @@ public class Column {
         // Draw text in the middle of the column
         canvas.drawText(displayName, left, bottom - 10, textPaint);
 
-        // Draw value at the top of the column
-        canvas.drawText(String.valueOf(value), left, animatedTop - textSize, textPaint);
+        // Draw current value at the top of the column
+        canvas.drawText(String.valueOf(currentValue), left, animatedTop - textSize, textPaint);
     }
 
     public Column setValue(int value) {
@@ -66,6 +68,11 @@ public class Column {
 
     public Column setAnimatedValue(int animatedValue) {
         this.animatedValue = animatedValue;
+        return this;
+    }
+
+    public Column setCurrentValue(int currentValue) {
+        this.currentValue = currentValue;
         return this;
     }
 

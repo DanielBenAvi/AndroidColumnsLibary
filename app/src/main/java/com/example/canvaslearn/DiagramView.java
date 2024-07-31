@@ -40,6 +40,7 @@ public class DiagramView extends View {
         } else {
             for (int i = 0; i < dataList.size(); i++) {
                 pre_allocatedColumns.get(i).setAnimatedValue(dataList.get(i).getSize());
+                pre_allocatedColumns.get(i).setCurrentValue(dataList.get(i).getSize());
             }
             invalidate();
         }
@@ -52,7 +53,9 @@ public class DiagramView extends View {
             ValueAnimator animator = ValueAnimator.ofInt(0, value);
             animator.setDuration(1000);
             animator.addUpdateListener(animation -> {
-                column.setAnimatedValue((int) animation.getAnimatedValue());
+                int animatedValue = (int) animation.getAnimatedValue();
+                column.setAnimatedValue(animatedValue);
+                column.setCurrentValue(animatedValue);
                 invalidate();
             });
             animator.start();
