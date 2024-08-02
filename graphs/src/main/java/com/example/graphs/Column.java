@@ -16,6 +16,7 @@ public class Column {
     private int color;
     private int textColor;
     private float textSize;
+    private OnClickListener onClickListener;
 
     public Column() {
         // Default values
@@ -141,4 +142,32 @@ public class Column {
             textPaint.setFakeBoldText(false);
         }
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public boolean contains(int x, int y) {
+        return x >= left && x <= right && y >= top && y <= bottom;
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.onClickListener = listener;
+    }
+
+    public void performClick() {
+        if (onClickListener != null) {
+            onClickListener.onClick(this);
+        }
+    }
+
+    public interface OnClickListener {
+        void onClick(Column column);
+    }
+
+
 }

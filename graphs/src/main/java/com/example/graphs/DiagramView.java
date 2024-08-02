@@ -1,10 +1,14 @@
 package com.example.graphs;
 
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -148,4 +152,28 @@ public class DiagramView extends View {
     public void setAnimateColumns(boolean animate) {
         this.animateColumns = animate;
     }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            for (Column column : pre_allocatedColumns) {
+                if (column.contains((int) event.getX(), (int) event.getY())) {
+                    column.performClick();
+                    showColumnDialog(column.getName(), column.getValue());
+                    return true;
+                }
+            }
+        }
+        return super.onTouchEvent(event);
+    }
+
+    private void showColumnDialog(String columnName, int columnValue) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("" + columnName );
+        builder.setMessage("Value: " + columnValue);
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+
 }
