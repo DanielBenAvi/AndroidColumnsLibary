@@ -25,10 +25,11 @@ public class MainActivity extends AppCompatActivity {
         graphDataList.add(new GraphData("Item 4", 100));
         graphDataList.add(new GraphData("Item 5", 50));
         diagramView.setAnimateColumns(true);
+        diagramView.setTextBold(true);
         diagramView.setDataList(graphDataList);
-        diagramView.setTheBackgroundColor(Color.parseColor("#FFC107"));
+        diagramView.setTheBackgroundColor(Color.parseColor("#FFFFFF"));
         diagramView.setColumnsColor(Color.parseColor("#FF5722"));
-        diagramView.setColumnsTextColor(Color.parseColor("#FFFFFF"));
+        diagramView.setColumnsTextColor(Color.parseColor("#000000"));
         diagramView.setColumnsTextSize(40);
         diagramView.setSpaceBetweenColumns(10);
 
