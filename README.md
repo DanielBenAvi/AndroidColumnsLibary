@@ -1,8 +1,6 @@
 # Columns Library
-
-An Android library that provides a custom view to display a list of columns.\n
 ![Screenshot 2024-08-02 at 19 11 18](https://github.com/user-attachments/assets/00f9fd3a-374e-4571-9818-4bbc34ff0f73)
-
+An Android library that provides a custom view to display a list of columns.
 
 ## Installation
 
