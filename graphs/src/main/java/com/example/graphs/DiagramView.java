@@ -1,4 +1,4 @@
-package com.example.canvaslearn;
+package com.example.graphs;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class DiagramView extends View {
     private ArrayList<Column> pre_allocatedColumns;
-    private ArrayList<Data> dataList;
+    private ArrayList<GraphData> graphDataList;
     private boolean animateColumns = false;
     private int spaceBetweenColumns = 50;
 
@@ -22,34 +22,34 @@ public class DiagramView extends View {
     }
 
     private void init() {
-        dataList = new ArrayList<>();
+        graphDataList = new ArrayList<>();
         pre_allocatedColumns = new ArrayList<>();
     }
 
-    public void setDataList(ArrayList<Data> dataList) {
-        this.dataList = dataList;
+    public void setDataList(ArrayList<GraphData> graphDataList) {
+        this.graphDataList = graphDataList;
 
         // Preallocate Column objects
         pre_allocatedColumns.clear();
-        for (int i = 0; i < dataList.size(); i++) {
+        for (int i = 0; i < graphDataList.size(); i++) {
             pre_allocatedColumns.add(new Column());
         }
 
         if (animateColumns) {
             startAnimation();
         } else {
-            for (int i = 0; i < dataList.size(); i++) {
-                pre_allocatedColumns.get(i).setAnimatedValue(dataList.get(i).getSize());
-                pre_allocatedColumns.get(i).setCurrentValue(dataList.get(i).getSize());
+            for (int i = 0; i < graphDataList.size(); i++) {
+                pre_allocatedColumns.get(i).setAnimatedValue(graphDataList.get(i).getSize());
+                pre_allocatedColumns.get(i).setCurrentValue(graphDataList.get(i).getSize());
             }
             invalidate();
         }
     }
 
     private void startAnimation() {
-        for (int i = 0; i < dataList.size(); i++) {
+        for (int i = 0; i < graphDataList.size(); i++) {
             final Column column = pre_allocatedColumns.get(i);
-            final int value = dataList.get(i).getSize();
+            final int value = graphDataList.get(i).getSize();
             ValueAnimator animator = ValueAnimator.ofInt(0, value);
             animator.setDuration(1000);
             animator.addUpdateListener(animation -> {
@@ -64,21 +64,21 @@ public class DiagramView extends View {
 
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
-        if (dataList == null || dataList.isEmpty()) {
+        if (graphDataList == null || graphDataList.isEmpty()) {
             return;
         }
 
-        int columnWidth = (getWidth() - spaceBetweenColumns * (dataList.size() + 1)) / dataList.size();
+        int columnWidth = (getWidth() - spaceBetweenColumns * (graphDataList.size() + 1)) / graphDataList.size();
         int maxDataSize = 0;
-        for (Data data : dataList) {
-            if (data.getSize() > maxDataSize) {
-                maxDataSize = data.getSize();
+        for (GraphData graphData : graphDataList) {
+            if (graphData.getSize() > maxDataSize) {
+                maxDataSize = graphData.getSize();
             }
         }
 
         int columnHeight;
-        for (int i = 0; i < dataList.size(); i++) {
-            columnHeight = dataList.get(i).getSize() * getHeight() / maxDataSize - 10;
+        for (int i = 0; i < graphDataList.size(); i++) {
+            columnHeight = graphDataList.get(i).getSize() * getHeight() / maxDataSize - 10;
             int left = spaceBetweenColumns * (i + 1) + columnWidth * i;
             int top = getHeight() - columnHeight;
             int right = left + columnWidth;
@@ -86,8 +86,8 @@ public class DiagramView extends View {
 
             // Reuse pre allocated Column objects
             Column column = pre_allocatedColumns.get(i);
-            column.setValue(dataList.get(i).getSize())
-                    .setName(dataList.get(i).getName())
+            column.setValue(graphDataList.get(i).getSize())
+                    .setName(graphDataList.get(i).getName())
                     .setBounds(left, top, right, bottom)
                     .draw(canvas);
         }

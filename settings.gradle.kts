@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CanvasLearn"
 include(":app")
- 
+include(":graphs")

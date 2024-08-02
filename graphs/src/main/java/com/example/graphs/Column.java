@@ -1,4 +1,4 @@
-package com.example.canvaslearn;
+package com.example.graphs;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

@@ -3,11 +3,10 @@ package com.example.canvaslearn;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.graphs.DiagramView;
+import com.example.graphs.GraphData;
 
 import java.util.ArrayList;
 
@@ -19,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DiagramView diagramView = findViewById(R.id.diagramView);
-        ArrayList<Data> dataList = new ArrayList<>();
-        dataList.add(new Data("Item 1", 100));
-        dataList.add(new Data("Item 2", 150));
-        dataList.add(new Data("Item 3", 300));
-        dataList.add(new Data("Item 4", 100));
-        dataList.add(new Data("Item 5", 50));
+        ArrayList<GraphData> graphDataList = new ArrayList<>();
+        graphDataList.add(new GraphData("Item 1", 100));
+        graphDataList.add(new GraphData("Item 2", 150));
+        graphDataList.add(new GraphData("Item 3", 300));
+        graphDataList.add(new GraphData("Item 4", 100));
+        graphDataList.add(new GraphData("Item 5", 50));
         diagramView.setAnimateColumns(true);
-        diagramView.setDataList(dataList);
+        diagramView.setDataList(graphDataList);
         diagramView.setTheBackgroundColor(Color.parseColor("#FFC107"));
         diagramView.setColumnsColor(Color.parseColor("#FF5722"));
         diagramView.setColumnsTextColor(Color.parseColor("#FFFFFF"));
