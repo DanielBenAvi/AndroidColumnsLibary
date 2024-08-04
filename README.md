@@ -4,6 +4,26 @@ An Android library that provides a custom view to display a list of columns.
 
 ## Installation
 
+Add it in your root build.gradle at the end of repositories:
+```kts
+	dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+```kts
+	dependencies {
+	        implementation("com.github.DanielBenAvi:AndroidColumnsLibary:1.0.0")
+	}
+
+```
+
+
+
 ## Usage
 
 To use the Columns view in your project, add the following XML code to your layout file:
